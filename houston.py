@@ -141,10 +141,6 @@ def main():
 
         overwrite_iram(device, debug_mode, SOC_DATA[soc]["rx_address"], SOC_DATA[soc]["usb_struct_offset"])
 
-        logger.error("Wait for USB to re-initialise.")
-        device = find_device(True)
-        logger.warning("Found device.")
-
         query_and_save_response(device, output_folder_path, console_output, debug_mode)
         print()
 

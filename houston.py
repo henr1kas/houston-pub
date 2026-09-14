@@ -93,7 +93,7 @@ def main():
     parser.add_argument('-d', '--debug', action="store_true", help="Debug Mode (hexdumps device responses when console output is enabled and control transfer responses)", required=False)
     parser.add_argument('-o', '--output', type=str, help="Path to a folder where to save payload output to", required=False)
     parser.add_argument('-c', '--console-output', action="store_true", help="Show output to console", required=False)
-    parser.add_argument('files', nargs='+', metavar='files', help="Files to send to the device post exploit (seperated by a space)")
+    parser.add_argument('files', nargs='*', metavar='files', help="Files to send to the device post exploit (seperated by a space)")
 
     args = parser.parse_args()
 
@@ -111,6 +111,10 @@ def main():
         else:
             logger.critical("To use the exploit mode, please provide a payload with -p [path to payload]")
             sys.exit(-1)
+
+    if not args.exploit and not args.files:
+        logger.critical("files are required unless -e is specified")
+        sys.exit(-1)
 
     if args.output:
         logger.warning(f"Output folder: {args.output}")
